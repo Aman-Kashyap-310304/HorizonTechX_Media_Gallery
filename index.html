@@ -163,38 +163,33 @@
             <span class="fab-label">Share</span>
         </div>
     </div>
-
     <script>
     // ==========================================
     // SECURITY WRAPPER: DOMAIN & IFRAME PROTECTION
     // ==========================================
     (function() {
-        const ALLOWED_ORIGIN = 'https://aman-kashyap-310304.github.io';
-        const TARGET_PATH = '/HorizonTechX_Media-Gallery/';
-        const EXPECTED_URL = ALLOWED_ORIGIN + TARGET_PATH;
+        // Your exact allowed URL base
+        const exactURL = "https://aman-kashyap-310304.github.io/HorizonTechX_Media_Gallery/";
+        // Handle the edge case where the browser drops the trailing slash
+        const exactURLNoSlash = "https://aman-kashyap-310304.github.io/HorizonTechX_Media_Gallery";
         
         let isAuthorized = false;
 
-        // 1. Initial Security Checks
+        // 1. Initial Security Checks (Simple & Direct)
         function checkSecurity() {
             try {
-                // Check if running inside an iframe
                 const isIframe = window.self !== window.top;
-                
-                // Check current URL (handles cases where the user directly visits a different domain)
                 const currentUrl = window.location.href;
                 
-                // We use .startsWith to allow sub-paths or query parameters if needed later
-                if (!isIframe && currentUrl.startsWith(EXPECTED_URL)) {
+                // No drama if: Not in an iframe AND URL matches our exact URL
+                // We use startsWith to safely handle if the user adds "index.html" at the end
+                if (!isIframe && (currentUrl.startsWith(exactURL) || currentUrl === exactURLNoSlash)) {
                     isAuthorized = true;
                 } else {
-                    // It's in an iframe, or on the wrong domain.
-                    // (Even if the iframe has sandbox="allow-scripts", window.top access will throw a CORS error if domains don't match,
-                    // which is caught by the try-catch block below).
-                    isAuthorized = false;
+                    isAuthorized = false; // Do drama
                 }
             } catch (e) {
-                // CORS violation: The iframe is attempting to access a parent domain it doesn't own.
+                // If checking window.top throws an error, it's a cross-origin iframe. Do drama.
                 isAuthorized = false;
             }
 
@@ -207,33 +202,25 @@
 
         // 2. Load Core Assets ONLY if Authorized
         function loadAppAssets() {
-            // Load style.css
             const cssLink = document.createElement('link');
             cssLink.rel = 'stylesheet';
             cssLink.href = 'style.css';
             document.head.appendChild(cssLink);
 
-            // Load app.js
             const scriptTag = document.createElement('script');
-            scriptTag.src = 'script.js';
-            // Use defer so it executes after HTML is fully parsed, acting like standard inclusion
+            scriptTag.src = 'app.js';
             scriptTag.defer = true; 
             document.body.appendChild(scriptTag);
             
-            // Remove the blur from the body if it was applied during auth checking
             document.body.style.filter = 'none';
         }
 
-        // 3. The Custom Authorization Modal UI
+        // 3. The Custom Authorization Modal UI (The Drama)
         function showAuthorizationModal() {
-            // Immediately blur/hide background content for security
             document.body.style.overflow = 'hidden';
             
-            // Note: We avoid injecting CSS via an external file here because we haven't authorized it yet.
-            // Inline styles guarantee the modal works immediately even if everything else is blocked.
             const modalHTML = `
                 <div id="auth-guard-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(18, 18, 30, 0.95); backdrop-filter: blur(10px); z-index: 999999; display: flex; align-items: center; justify-content: center; font-family: 'Inter', system-ui, sans-serif;">
-                    
                     <div style="background: #1a1a2e; padding: 40px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.05); text-align: center; max-width: 400px; width: 90%;">
                         
                         <div style="width: 60px; height: 60px; background: rgba(239, 68, 68, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto;">
@@ -245,7 +232,7 @@
                         
                         <h2 style="color: #ffffff; font-size: 24px; font-weight: 700; margin-bottom: 12px; margin-top: 0;">Access Restricted</h2>
                         <p style="color: #8b8b9f; font-size: 14px; line-height: 1.6; margin-bottom: 24px;">
-                            This application is attempting to load from an unauthorized domain or iframe. Please enter an App Code to continue.
+                            This application is attempting to load from an unauthorized domain. Please enter an App Code to continue.
                         </p>
                         
                         <div style="margin-bottom: 24px;">
@@ -261,18 +248,14 @@
                 </div>
             `;
 
-            // Insert at the very top of the body
             document.body.insertAdjacentHTML('afterbegin', modalHTML);
 
-            // Hide the rest of the body content (assuming your main app is inside a <main> or <div>)
-            // We loop through body children and hide everything except our new overlay and script tags
             Array.from(document.body.children).forEach(child => {
                 if (child.id !== 'auth-guard-overlay' && child.tagName !== 'SCRIPT') {
                     child.style.display = 'none';
                 }
             });
 
-            // Attach event listener
             document.getElementById('auth-submit-btn').addEventListener('click', verifyCode);
             document.getElementById('auth-code-input').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') verifyCode();
@@ -286,36 +269,28 @@
             
             if (!inputVal) return;
 
-            // Fetch valid codes from the meta tags in the <head>
             const validCodes = [];
             document.querySelectorAll('meta[name^="authorization-"]').forEach(meta => {
                 validCodes.push(meta.getAttribute('content'));
             });
 
             if (validCodes.includes(inputVal)) {
-                // Success!
-                // 1. Remove the overlay
+                // Remove the overlay and restore body
                 document.getElementById('auth-guard-overlay').remove();
-                
-                // 2. Restore visibility to the rest of the body
                 Array.from(document.body.children).forEach(child => {
                     if (child.tagName !== 'SCRIPT') {
-                        child.style.display = ''; // Restore to default display
+                        child.style.display = ''; 
                     }
                 });
-                
-                // 3. Restore scrolling
                 document.body.style.overflow = '';
                 
-                // 4. Load the core assets
                 loadAppAssets();
             } else {
-                // Failure
+                // Shake animation for incorrect code
                 errorMsg.style.display = 'block';
                 const inputEl = document.getElementById('auth-code-input');
                 inputEl.style.borderColor = '#ef4444';
                 
-                // Simple shake animation
                 inputEl.style.transform = 'translateX(-5px)';
                 setTimeout(() => inputEl.style.transform = 'translateX(5px)', 50);
                 setTimeout(() => inputEl.style.transform = 'translateX(-5px)', 100);
@@ -324,7 +299,7 @@
             }
         }
 
-        // Execute immediately when the DOM is ready enough
+        // Execute
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', checkSecurity);
         } else {

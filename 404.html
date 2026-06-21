@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | HT Media Hub</title>
+    <meta name="theme-color" content="#1a1a2e">
+    <link rel="icon" href="gallery.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap">
+    <style>
+        :root {
+            --bg-color: #12121e;
+            --surface-color: #1a1a2e;
+            --text-main: #ffffff;
+            --text-muted: #8b8b9f;
+            --accent-cyan: #00F2FE;
+            --accent-cyan-dark: #02AAB0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .error-container {
+            max-width: 600px;
+            padding: 40px;
+            background: var(--surface-color);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            z-index: 10;
+        }
+
+        .error-container img {
+            filter: drop-shadow(0 4px 15px rgba(0, 242, 254, 0.4));
+            position: relative;
+            z-index: 10;
+            alignment: center;
+        }
+
+        .error-code {
+            font-size: 120px;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-cyan-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 15px rgba(0, 242, 254, 0.4));
+        }
+
+        .error-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .error-desc {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .bad-url-box {
+            background: rgba(0,0,0,0.3);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: monospace;
+            color: var(--accent-cyan);
+            word-break: break-all;
+            margin-bottom: 32px;
+            border: 1px dashed rgba(0, 242, 254, 0.3);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-cyan-dark));
+            color: #12121e;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-main);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Background decorative elements */
+        .glow-orb {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.15;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-orb"></div>
+    <div class="error-container">
+        <img src="gallery.svg" alt="Gallery Icon" width="80" style="margin-bottom: 20px;">
+        <div class="error-code">404</div>
+        <h1 class="error-title">Page Not Found</h1>
+        <p class="error-desc">
+            The media or folder you are looking for has been moved, deleted, or never existed in the first place.
+        </p>
+        <div class="bad-url-box" id="url-display">
+            <i class="bi bi-link-45deg"></i> <span id="path-text">Loading path...</span>
+        </div>
+        <div class="action-buttons">
+            <button onclick="goBack()" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Go Back
+            </button>
+            <a href="https://aman-kashyap-310304.github.io/HorizonTechX_Media-Gallery/" class="btn btn-primary">
+                <i class="bi bi-house-door-fill"></i> Return Home
+            </a>
+        </div>
+    </div>
+    <script>
+        // Feature 1: Replicate top url bar url to original URL for better UX
+        if (window.location.pathname !== "/404.html") {
+            window.history.replaceState({}, document.title, "/404.html");
+        }
+        // Feature 2: Auto-extract and display the broken URL path
+        document.addEventListener("DOMContentLoaded", () => {
+            const pathTextElement = document.getElementById("path-text");
+            // Displays just the path (e.g., /missing-image) instead of the massive full URL for cleaner UI
+            const requestedPath = window.location.pathname + window.location.search;
+            if (requestedPath && requestedPath !== "/") {
+                pathTextElement.textContent = requestedPath;
+            } else {
+                pathTextElement.textContent = window.location.href;
+            }
+            // Note: If you are building an SPA routing system later, 
+            // you can save the requestedPath to sessionStorage here before redirecting.
+        });
+        // Feature 3: Undo Action / Navigate Back
+        function goBack() {
+            // Checks if the user actually has a previous page in their history to go back to.
+            // If they landed on the 404 directly via a link, history.length is 1, so we fallback to the Home Page.
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = "https://aman-kashyap-310304.github.io/HorizonTechX_Media-Gallery/";
+            }
+        }
+    </script>
+</body>
+</html>

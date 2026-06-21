@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70" width="100%" height="100%">
+  <defs>
+    <linearGradient id="gallery-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F2FE" />
+      <stop offset="100%" stop-color="#02AAB0" />
+    </linearGradient>
+    
+    <filter id="neon-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#00F2FE" flood-opacity="0.35"/>
+    </filter>
+
+    <clipPath id="inner-frame">
+      <rect x="10" y="10" width="50" height="50" rx="14" />
+    </clipPath>
+  </defs>
+
+  <rect x="10" y="10" width="50" height="50" rx="14" fill="url(#gallery-cyan)" filter="url(#neon-glow)" />
+  
+  <g clip-path="url(#inner-frame)">
+    <circle cx="44" cy="26" r="5" fill="#FFFFFF" />
+    
+    <path d="M 2 60 L 25 35 L 38 48 L 48 38 L 68 60 Z" fill="#FFFFFF" />
+  </g>
+</svg>

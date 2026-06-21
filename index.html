@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Horizon TechX Media Gallery | Secure, Offline Local Storage App</title>
+    <meta name="title" content="Horizon TechX Media Gallery | Secure, Offline Local Storage App">
+    <meta property="og:title" content="Horizon TechX Media Gallery | Secure, Offline Local Storage App">
+    <meta property="twitter:title" content="Horizon TechX Media Gallery | Secure, Offline Local Storage App">
+    <meta name="description" content="Organize, edit, and view your photos, videos, and music completely offline. A privacy-first media hub that stores everything securely in your browser's local storage.">
+    <meta property="og:description" content="Organize, edit, and view your photos, videos, and music completely offline. A privacy-first media hub that stores everything securely in your browser's local storage.">
+    <meta property="twitter:description" content="Organize, edit, and view your photos, videos, and music completely offline. A privacy-first media hub that stores everything securely in your browser's local storage.">
+    <meta name="keywords" content="offline gallery, local storage photo app, secure photo viewer, browser gallery, private media organizer, offline music player">
+    <meta name="author" content="Akshat Prasad">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://aman-kashyap-310304.github.io/HorizonTechX_Media-Gallery/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aman-kashyap-310304.github.io/HorizonTechX_Media-Gallery/">
+    <meta property="og:image" content="https://aman-kashyap-310304.github.io/HorizonTechX_Media-Gallery/gallery.svg">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://aman-kashyap-310304.github.io/HorizonTechX_Media-Gallery/">
+    <meta property="twitter:image" content="https://aman-kashyap-310304.github.io/HorizonTechX_Media-Gallery/gallery.svg">
+    <meta name="theme-color" content="#1a1a2e"> 
+    <link rel="icon" href="gallery.svg" type="image/x-icon">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap">
+    <meta name="authorization-1" content="4abOf34e">
+    <meta name="authorization-2" content="5abDf34e">
+    <meta name="authorization-3" content="6abAf34e">
+    <script type="application/ld+json" class="structured-data">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://aman-kashyap-310304.github.io/HorizonTechX_Media-Gallery/",
+          "name": "Horizon TechX Media Gallery | Secure, Offline Local Storage App",
+          "description": "Organize, edit, and view your photos, videos, and music completely offline. A privacy-first media hub that stores everything securely in your browser's local storage.",
+          "applicationCategory": "MultimediaApplication",
+          "operatingSystem": "Web Browser",
+          "author": {
+            "@id": "https://aman-kashyap-310304.github.io/Aman_Kashyap_Portfolio/"
+          },
+          "publisher": {
+            "@id": "https://aman-kashyap-310304.github.io/Aman_Kashyap_Portfolio/"
+          },
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://aman-kashyap-310304.github.io/HorizonTechX_Media-Gallery/gallery.svg"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://akshat-145609.github.io/MyPortfolioSite/",
+          "name": "Akshat Prasad",
+          "jobTitle": "Full-Stack Web Developer",
+          "url": "https://akshat-881236.github.io/AkshatNetworkHub/",
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://akshat-881236.github.io/AkshatNetworkHub/",
+          "name": "Akshat Network Hub",
+          "url": "https://akshat-881236.github.io/AkshatNetworkHub/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://akshat-881236.github.io/TrackerJS/Assets/AKNH/icon-192.png"
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <div class="header-title">
+                <img src="gallery.svg" alt="Media Gallery" class="header-icon" height="40" width="40">
+                <span>Media Gallery</span>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-icon btn-primary" id="selectionToggleBtn" title="Toggle Selection Mode">
+                    <i class="fas fa-check-square"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+        <div class="toolbar-container">
+            <div class="upload-zone">
+                <input type="file" id="uploadInput" class="upload-input" multiple accept="image/*,video/*">
+                <label for="uploadInput" class="upload-label">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </label>
+            </div>
+            <div class="filter-section">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="images">Images</button>
+                <button class="filter-btn" data-filter="videos">Videos</button>
+                <button class="filter-btn" data-filter="favorites">Favorites</button>
+            </div>
+        </div>
+    </div>
+    <!-- MAIN CONTENT -->
+    <main class="main-container">
+        <div class="gallery-container" id="galleryContainer">
+            <div class="empty-state">
+                <i class="fas fa-photo-video"></i>
+                <h2>No media yet</h2>
+                <p>Upload images or videos to get started</p>
+            </div>
+        </div>
+    </main>
+    <!-- LIGHTBOX -->
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <div class="lightbox-container">
+            <div class="lightbox-header">
+                <div class="lightbox-title" id="lightboxTitle">Media</div>
+                <button class="lightbox-close" id="lightboxClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="lightbox-media" id="lightboxMedia"></div>
+            <button class="lightbox-nav prev" id="lightboxPrev" title="Previous">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="lightbox-nav next" id="lightboxNext" title="Next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="lightbox-footer" id="lightboxFooter"></div>
+        </div>
+    </div>
+    <!-- CUSTOM MODALS -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Modal</h2>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-footer" id="modalFooter"></div>
+        </div>
+    </div>
+    <!-- FLOATING ACTION BUTTONS -->
+    <div class="fab-container" id="fabContainer" style="display: none;">
+        <div class="fab-group">
+            <button class="fab" id="deleteSelectedBtn" title="Delete Selected">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+            <span class="fab-label">Delete</span>
+        </div>
+        <div class="fab-group">
+            <button class="fab" id="shareSelectedBtn" title="Share Selected">
+                <i class="fas fa-share-alt"></i>
+            </button>
+            <span class="fab-label">Share</span>
+        </div>
+    </div>
+
+    <script>
+    // ==========================================
+    // SECURITY WRAPPER: DOMAIN & IFRAME PROTECTION
+    // ==========================================
+    (function() {
+        const ALLOWED_ORIGIN = 'https://aman-kashyap-310304.github.io';
+        const TARGET_PATH = '/HorizonTechX_Media-Gallery/';
+        const EXPECTED_URL = ALLOWED_ORIGIN + TARGET_PATH;
+        
+        let isAuthorized = false;
+
+        // 1. Initial Security Checks
+        function checkSecurity() {
+            try {
+                // Check if running inside an iframe
+                const isIframe = window.self !== window.top;
+                
+                // Check current URL (handles cases where the user directly visits a different domain)
+                const currentUrl = window.location.href;
+                
+                // We use .startsWith to allow sub-paths or query parameters if needed later
+                if (!isIframe && currentUrl.startsWith(EXPECTED_URL)) {
+                    isAuthorized = true;
+                } else {
+                    // It's in an iframe, or on the wrong domain.
+                    // (Even if the iframe has sandbox="allow-scripts", window.top access will throw a CORS error if domains don't match,
+                    // which is caught by the try-catch block below).
+                    isAuthorized = false;
+                }
+            } catch (e) {
+                // CORS violation: The iframe is attempting to access a parent domain it doesn't own.
+                isAuthorized = false;
+            }
+
+            if (isAuthorized) {
+                loadAppAssets();
+            } else {
+                showAuthorizationModal();
+            }
+        }
+
+        // 2. Load Core Assets ONLY if Authorized
+        function loadAppAssets() {
+            // Load style.css
+            const cssLink = document.createElement('link');
+            cssLink.rel = 'stylesheet';
+            cssLink.href = 'style.css';
+            document.head.appendChild(cssLink);
+
+            // Load app.js
+            const scriptTag = document.createElement('script');
+            scriptTag.src = 'script.js';
+            // Use defer so it executes after HTML is fully parsed, acting like standard inclusion
+            scriptTag.defer = true; 
+            document.body.appendChild(scriptTag);
+            
+            // Remove the blur from the body if it was applied during auth checking
+            document.body.style.filter = 'none';
+        }
+
+        // 3. The Custom Authorization Modal UI
+        function showAuthorizationModal() {
+            // Immediately blur/hide background content for security
+            document.body.style.overflow = 'hidden';
+            
+            // Note: We avoid injecting CSS via an external file here because we haven't authorized it yet.
+            // Inline styles guarantee the modal works immediately even if everything else is blocked.
+            const modalHTML = `
+                <div id="auth-guard-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(18, 18, 30, 0.95); backdrop-filter: blur(10px); z-index: 999999; display: flex; align-items: center; justify-content: center; font-family: 'Inter', system-ui, sans-serif;">
+                    
+                    <div style="background: #1a1a2e; padding: 40px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.05); text-align: center; max-width: 400px; width: 90%;">
+                        
+                        <div style="width: 60px; height: 60px; background: rgba(239, 68, 68, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto;">
+                            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        
+                        <h2 style="color: #ffffff; font-size: 24px; font-weight: 700; margin-bottom: 12px; margin-top: 0;">Access Restricted</h2>
+                        <p style="color: #8b8b9f; font-size: 14px; line-height: 1.6; margin-bottom: 24px;">
+                            This application is attempting to load from an unauthorized domain or iframe. Please enter an App Code to continue.
+                        </p>
+                        
+                        <div style="margin-bottom: 24px;">
+                            <input type="password" id="auth-code-input" placeholder="Enter App Code" style="width: 100%; padding: 14px 16px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: #ffffff; font-size: 16px; outline: none; transition: border-color 0.3s ease; box-sizing: border-box;" onfocus="this.style.borderColor='#00F2FE'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                            <div id="auth-error-msg" style="color: #ef4444; font-size: 13px; margin-top: 8px; min-height: 18px; text-align: left; display: none;">Invalid App Code provided.</div>
+                        </div>
+                        
+                        <button id="auth-submit-btn" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #00F2FE 0%, #02AAB0 100%); color: #12121e; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; outline: none; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);">
+                            Verify Access
+                        </button>
+
+                    </div>
+                </div>
+            `;
+
+            // Insert at the very top of the body
+            document.body.insertAdjacentHTML('afterbegin', modalHTML);
+
+            // Hide the rest of the body content (assuming your main app is inside a <main> or <div>)
+            // We loop through body children and hide everything except our new overlay and script tags
+            Array.from(document.body.children).forEach(child => {
+                if (child.id !== 'auth-guard-overlay' && child.tagName !== 'SCRIPT') {
+                    child.style.display = 'none';
+                }
+            });
+
+            // Attach event listener
+            document.getElementById('auth-submit-btn').addEventListener('click', verifyCode);
+            document.getElementById('auth-code-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') verifyCode();
+            });
+        }
+
+        // 4. Verification Logic
+        function verifyCode() {
+            const inputVal = document.getElementById('auth-code-input').value.trim();
+            const errorMsg = document.getElementById('auth-error-msg');
+            
+            if (!inputVal) return;
+
+            // Fetch valid codes from the meta tags in the <head>
+            const validCodes = [];
+            document.querySelectorAll('meta[name^="authorization-"]').forEach(meta => {
+                validCodes.push(meta.getAttribute('content'));
+            });
+
+            if (validCodes.includes(inputVal)) {
+                // Success!
+                // 1. Remove the overlay
+                document.getElementById('auth-guard-overlay').remove();
+                
+                // 2. Restore visibility to the rest of the body
+                Array.from(document.body.children).forEach(child => {
+                    if (child.tagName !== 'SCRIPT') {
+                        child.style.display = ''; // Restore to default display
+                    }
+                });
+                
+                // 3. Restore scrolling
+                document.body.style.overflow = '';
+                
+                // 4. Load the core assets
+                loadAppAssets();
+            } else {
+                // Failure
+                errorMsg.style.display = 'block';
+                const inputEl = document.getElementById('auth-code-input');
+                inputEl.style.borderColor = '#ef4444';
+                
+                // Simple shake animation
+                inputEl.style.transform = 'translateX(-5px)';
+                setTimeout(() => inputEl.style.transform = 'translateX(5px)', 50);
+                setTimeout(() => inputEl.style.transform = 'translateX(-5px)', 100);
+                setTimeout(() => inputEl.style.transform = 'translateX(5px)', 150);
+                setTimeout(() => inputEl.style.transform = 'translateX(0)', 200);
+            }
+        }
+
+        // Execute immediately when the DOM is ready enough
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', checkSecurity);
+        } else {
+            checkSecurity();
+        }
+
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+# ==========================================
+# HT Media Hub - robots.txt
+# Application Type: Client-Side Offline Web App
+# ==========================================
+
+# Apply rules to all search engine crawlers
+User-agent: *
+
+# ALLOW: Let bots crawl the main entry points and assets needed to render the UI
+Allow: /$
+Allow: /index.html
+Allow: /style.css
+Allow: /app.js
+Allow: /*.svg$
+Allow: /*.png$
+Allow: /*.jpg$
+
+# DISALLOW: Prevent bots from indexing the 404 error page (SEO Best Practice)
+Disallow: /404.html
+
+# DISALLOW: Prevent bots from trying to crawl theoretical dynamic routes 
+# (Even though your app uses local storage, this stops bots from wasting crawl budget on bad URL structures)
+Disallow: /*?*
+Disallow: /*#*
+
+# ==========================================
+# SITEMAP
+# ==========================================
+Sitemap: https://aman-kashyap-310304.github.io/HorizonTechX_Media-Gallery/sitemap.xml

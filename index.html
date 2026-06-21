@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap">
+    <link rel="stylesheet" href="style.css">
     <meta name="authorization-1" content="4abOf34e">
     <meta name="authorization-2" content="5abDf34e">
     <meta name="authorization-3" content="6abAf34e">
@@ -202,13 +203,8 @@
 
         // 2. Load Core Assets ONLY if Authorized
         function loadAppAssets() {
-            const cssLink = document.createElement('link');
-            cssLink.rel = 'stylesheet';
-            cssLink.href = 'style.css';
-            document.head.appendChild(cssLink);
-
             const scriptTag = document.createElement('script');
-            scriptTag.src = 'app.js';
+            scriptTag.src = 'script.js';
             scriptTag.defer = true; 
             document.body.appendChild(scriptTag);
             

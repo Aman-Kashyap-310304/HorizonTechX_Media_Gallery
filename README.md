@@ -79,12 +79,8 @@ Because the software contains **zero server-side dependencies**, launching a loc
 
 1. **Clone the repository:**
 ```bash
-
-```
-
-
-
 git clone https://github.com/aman-kashyap-310304/HorizonTechX_Media-Gallery.git
+```
 
 ```
 2. **Navigate into the directory:**
